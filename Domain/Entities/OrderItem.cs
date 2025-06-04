@@ -5,7 +5,7 @@ namespace Domain.Entities;
 
 public class OrderItem : BaseEntity
 {
-    public Guid OrderId { get; private set; }
+    public Guid OrderId { get; set; }
     public string? ProductId { get; private set; }
     public string? ProductName { get; private set; }
     public Money UnitPrice { get; } = Money.Zero("USD");
@@ -15,9 +15,8 @@ public class OrderItem : BaseEntity
     // ReSharper disable once UnusedMember.Local
     private OrderItem() { } // For EF Core
 
-    public OrderItem(string productId, string productName, Money unitPrice, int quantity, Guid orderId)
+    public OrderItem(string productId, string productName, Money unitPrice, int quantity)
     {
-        OrderId = orderId != Guid.Empty ? orderId : throw new ArgumentNullException(nameof(orderId));
         ProductId = productId ?? throw new ArgumentNullException(nameof(productId));
         ProductName = productName ?? throw new ArgumentNullException(nameof(productName));
         UnitPrice = unitPrice ?? throw new ArgumentNullException(nameof(unitPrice));
